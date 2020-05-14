@@ -1,2 +1,0 @@
-# Gescom
-gestion commerciale

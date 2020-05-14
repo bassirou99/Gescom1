@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="GESCOMModelStoreContainer" CdmEntityContainer="DBGescomContext">
+    <EntitySetMapping Name="Articles">
+      <EntityTypeMapping TypeName="GESCOMModel.Article">
+        <MappingFragment StoreEntitySet="Article">
+          <ScalarProperty Name="ID_Article" ColumnName="ID_Article" />
+          <ScalarProperty Name="Reference_Article" ColumnName="Reference_Article" />
+          <ScalarProperty Name="Libelle_Article" ColumnName="Libelle_Article" />
+          <ScalarProperty Name="Stock_Article" ColumnName="Stock_Article" />
+          <ScalarProperty Name="Prix_Article" ColumnName="Prix_Article" />
+          <ScalarProperty Name="ID_Categorie" ColumnName="ID_Categorie" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Categories">
+      <EntityTypeMapping TypeName="GESCOMModel.Categorie">
+        <MappingFragment StoreEntitySet="Categorie">
+          <ScalarProperty Name="ID_Categorie" ColumnName="ID_Categorie" />
+          <ScalarProperty Name="Nom_Categorie" ColumnName="Nom_Categorie" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Clients">
+      <EntityTypeMapping TypeName="GESCOMModel.Client">
+        <MappingFragment StoreEntitySet="Client">
+          <ScalarProperty Name="ID_Client" ColumnName="ID_Client" />
+          <ScalarProperty Name="Nom_Client" ColumnName="Nom_Client" />
+          <ScalarProperty Name="Prenom_Client" ColumnName="Prenom_Client" />
+          <ScalarProperty Name="Adresse_Client" ColumnName="Adresse_Client" />
+          <ScalarProperty Name="Phone_Client" ColumnName="Phone_Client" />
+          <ScalarProperty Name="Pays_Client" ColumnName="Pays_Client" />
+          <ScalarProperty Name="Ville_Client" ColumnName="Ville_Client" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Commandes">
+      <EntityTypeMapping TypeName="GESCOMModel.Commande">
+        <MappingFragment StoreEntitySet="Commande">
+          <ScalarProperty Name="ID_Commande" ColumnName="ID_Commande" />
+          <ScalarProperty Name="DATE_Commande" ColumnName="DATE_Commande" />
+          <ScalarProperty Name="ID_Client" ColumnName="ID_Client" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Profils">
+      <EntityTypeMapping TypeName="GESCOMModel.Profil">
+        <MappingFragment StoreEntitySet="Profil">
+          <ScalarProperty Name="ID_Profil" ColumnName="ID_Profil" />
+          <ScalarProperty Name="Nom_Profil" ColumnName="Nom_Profil" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Utilisateurs">
+      <EntityTypeMapping TypeName="GESCOMModel.Utilisateur">
+        <MappingFragment StoreEntitySet="Utilisateur">
+          <ScalarProperty Name="nom_login" ColumnName="nom_login" />
+          <ScalarProperty Name="mdp" ColumnName="mdp" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="prenom" ColumnName="prenom" />
+          <ScalarProperty Name="ID_Profil" ColumnName="ID_Profil" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Detail_Commande">
+      <EntityTypeMapping TypeName="GESCOMModel.Detail_Commande">
+        <MappingFragment StoreEntitySet="Detail_Commande">
+          <ScalarProperty Name="ID_Commande" ColumnName="ID_Commande" />
+          <ScalarProperty Name="ID_Article" ColumnName="ID_Article" />
+          <ScalarProperty Name="Quantite" ColumnName="Quantite" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

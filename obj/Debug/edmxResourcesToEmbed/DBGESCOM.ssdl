@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="GESCOMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Article">
+    <Key>
+      <PropertyRef Name="ID_Article" />
+    </Key>
+    <Property Name="ID_Article" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Reference_Article" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="Libelle_Article" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="Stock_Article" Type="int" Nullable="false" />
+    <Property Name="Prix_Article" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="ID_Categorie" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Categorie">
+    <Key>
+      <PropertyRef Name="ID_Categorie" />
+    </Key>
+    <Property Name="ID_Categorie" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nom_Categorie" Type="nvarchar" MaxLength="250" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Client">
+    <Key>
+      <PropertyRef Name="ID_Client" />
+    </Key>
+    <Property Name="ID_Client" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nom_Client" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="Prenom_Client" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="Adresse_Client" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="Phone_Client" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="Pays_Client" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="Ville_Client" Type="nvarchar" MaxLength="250" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Commande">
+    <Key>
+      <PropertyRef Name="ID_Commande" />
+    </Key>
+    <Property Name="ID_Commande" Type="int" Nullable="false" />
+    <Property Name="DATE_Commande" Type="datetime" Nullable="false" />
+    <Property Name="ID_Client" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Erreurs détectées durant la génération :
+avertissement 6002: La table/vue 'GESCOM.dbo.Detail_Commande' n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.-->
+  <EntityType Name="Detail_Commande">
+    <Key>
+      <PropertyRef Name="ID_Commande" />
+      <PropertyRef Name="ID_Article" />
+      <PropertyRef Name="Quantite" />
+    </Key>
+    <Property Name="ID_Commande" Type="int" Nullable="false" />
+    <Property Name="ID_Article" Type="int" Nullable="false" />
+    <Property Name="Quantite" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Profil">
+    <Key>
+      <PropertyRef Name="ID_Profil" />
+    </Key>
+    <Property Name="ID_Profil" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nom_Profil" Type="nvarchar" MaxLength="250" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Utilisateur">
+    <Key>
+      <PropertyRef Name="nom_login" />
+    </Key>
+    <Property Name="nom_login" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="mdp" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="nom" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="prenom" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="ID_Profil" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Article_Categorie">
+    <End Role="Categorie" Type="Self.Categorie" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Article" Type="Self.Article" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categorie">
+        <PropertyRef Name="ID_Categorie" />
+      </Principal>
+      <Dependent Role="Article">
+        <PropertyRef Name="ID_Categorie" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Commande_Client">
+    <End Role="Client" Type="Self.Client" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Commande" Type="Self.Commande" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Client">
+        <PropertyRef Name="ID_Client" />
+      </Principal>
+      <Dependent Role="Commande">
+        <PropertyRef Name="ID_Client" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Detail_Commande_Article">
+    <End Role="Article" Type="Self.Article" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Detail_Commande" Type="Self.Detail_Commande" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Article">
+        <PropertyRef Name="ID_Article" />
+      </Principal>
+      <Dependent Role="Detail_Commande">
+        <PropertyRef Name="ID_Article" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Detail_Commande_Commande">
+    <End Role="Commande" Type="Self.Commande" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Detail_Commande" Type="Self.Detail_Commande" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Commande">
+        <PropertyRef Name="ID_Commande" />
+      </Principal>
+      <Dependent Role="Detail_Commande">
+        <PropertyRef Name="ID_Commande" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Utilisateur_Profil">
+    <End Role="Profil" Type="Self.Profil" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Utilisateur" Type="Self.Utilisateur" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Profil">
+        <PropertyRef Name="ID_Profil" />
+      </Principal>
+      <Dependent Role="Utilisateur">
+        <PropertyRef Name="ID_Profil" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="GESCOMModelStoreContainer">
+    <EntitySet Name="Article" EntityType="Self.Article" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Categorie" EntityType="Self.Categorie" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Commande" EntityType="Self.Commande" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Profil" EntityType="Self.Profil" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Utilisateur" EntityType="Self.Utilisateur" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Detail_Commande" EntityType="Self.Detail_Commande" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Detail_Commande].[ID_Commande] AS [ID_Commande], 
+    [Detail_Commande].[ID_Article] AS [ID_Article], 
+    [Detail_Commande].[Quantite] AS [Quantite]
+    FROM [dbo].[Detail_Commande] AS [Detail_Commande]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_Article_Categorie" Association="Self.FK_Article_Categorie">
+      <End Role="Categorie" EntitySet="Categorie" />
+      <End Role="Article" EntitySet="Article" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Commande_Client" Association="Self.FK_Commande_Client">
+      <End Role="Client" EntitySet="Client" />
+      <End Role="Commande" EntitySet="Commande" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Detail_Commande_Article" Association="Self.FK_Detail_Commande_Article">
+      <End Role="Article" EntitySet="Article" />
+      <End Role="Detail_Commande" EntitySet="Detail_Commande" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Detail_Commande_Commande" Association="Self.FK_Detail_Commande_Commande">
+      <End Role="Commande" EntitySet="Commande" />
+      <End Role="Detail_Commande" EntitySet="Detail_Commande" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Utilisateur_Profil" Association="Self.FK_Utilisateur_Profil">
+      <End Role="Profil" EntitySet="Profil" />
+      <End Role="Utilisateur" EntitySet="Utilisateur" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
